@@ -1,0 +1,33 @@
+.iconCounter {
+  margin-left: 15%;
+  font-size: 43px !important;
+  color: #eeeeee;
+}
+
+.panelCounter {
+  border: 1px solid rgb(233 233 233);
+  border-radius: 9px!important;
+  
+}
+
+.panelCounter:hover {
+  background: 'red'
+}
+
+.infoPanel {
+  text-align: right;
+  width: 100%;
+  padding-right: 11%;
+  padding-top: 3%;
+  color: #ffffff;
+}
+
+.counterNumber {
+  font-size: 26px;
+}
+
+.counterHint {
+  font-style: italic;
+  font-size: 12px;
+  color: #eeeeee;
+}

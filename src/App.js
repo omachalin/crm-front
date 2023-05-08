@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { AuthContext } from './context';
+import AppRouter from './route/AppRouter';
+import { UseCheckAuth } from './/hooks/CheckAuth';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
+  const [isAuth, setIsAuth] = useState()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthContext.Provider value={{
+      isAuth,
+      setIsAuth
+    }}>
+      {/* {<UseCheckAuth />} */}
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </AuthContext.Provider>
+  )
 }
-
 export default App;

@@ -1,0 +1,16 @@
+.financeBlock {
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  background: #3a8ad8;
+  color: white;
+}
+
+.financeBlockLabel {
+  padding: 5px;
+  font-size: 12px;
+}
+
+.financeBlockSum {
+  padding: 5px;
+  font-size: 12px;
+}

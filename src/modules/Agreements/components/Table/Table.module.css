@@ -1,0 +1,51 @@
+.colSpanDateTd {
+  background: #2a425a;
+  position: relative !important;
+  height: 0.3rem;
+}
+
+.colorRed {
+  color: #ff2f2f;
+}
+
+.areYouSureUserName {
+  margin-top: 3%;
+  font-weight: bold;
+}
+
+.areYouSureRemoveModal {
+  font-size: 30px;
+}
+
+.colSpanValue {
+  position: absolute;
+  font-size: 13px;
+  top: 11%;
+  right: 50%;
+  color: #ffffff;
+  left: 50%;
+}
+
+.dissolutionAgreement {
+  background: #ff8282;
+}
+
+.fullPaymentsAgreement {
+  background: #66bb6a;
+}
+
+.partiallyPaymentsAgreement {
+  background: #ffb33d;
+}
+
+.notPaidAgreement {
+  background: #fff;
+}
+
+.lawyerTdTable {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 11px;
+}
+

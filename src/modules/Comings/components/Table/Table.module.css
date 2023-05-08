@@ -1,0 +1,67 @@
+.textCenter {
+  text-align: center;
+}
+
+.colorRed {
+  color: #ff2f2f;
+}
+
+.areYouSureUserName {
+  margin-top: 3%;
+  font-weight: bold;
+}
+
+.areYouSureRemoveModal {
+  font-size: 30px;
+}
+
+.colSpanDateTd {
+  background: #2a425a;
+  position: relative !important;
+  height: 0.3rem;
+}
+
+.colSpanValue {
+  position: absolute;
+  font-size: 13px;
+  top: 46%;
+  color: #ffffff;
+}
+
+.mr_1_7rem {
+  margin-right: 1.3rem;
+}
+
+.timeRowTable {
+  position: absolute;
+  font-size: 11px;
+  top: 5%;
+  right: 0%;
+}
+
+/* Fix table head */
+.tableFixHead {
+  overflow: auto;
+  height: 1034px;
+}
+
+.tableFixHeadTh {
+  position: sticky;
+  top: 0;
+}
+
+/* Just common table stuff. */
+.tableComing {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.statusTable {
+  display: block;
+  line-height: 23px;
+  text-align: center;
+  border-radius: 10px;
+  width: 72px;
+  height: 22px;
+  font-size: 13px;
+}

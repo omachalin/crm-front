@@ -1,13 +1,120 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.removeIcon:hover {
+  color: red;
+}
+
+.editIcon:hover {
+  color: #1976d2;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+.Counter_panelCounter__EkO5e {
+  transition: 1s;
+  /* Время эффекта */
+}
+
+.Counter_panelCounter__EkO5e:hover {
+  transform: scale(1.05);
+  /* Увеличиваем масштаб */
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 0.4rem;
+}
+
+.color-red {
+  color: red;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.removeIcon,
+.editIcon,
+.moneyIcon,
+.addMoneyIcon {
+  cursor: pointer;
+}
+
+.moneyIcon:hover {
+  color: rgb(9, 170, 9);
+}
+
+.addMoneyIcon:hover {
+  color: rgb(1 88 173);
+}
+
+.addMoneyIcon {
+  color: rgb(58 138 216);
+}
+
+.removeIcon:hover {
+  color: red;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.editIcon:hover {
+  color: #1976d2;
+}
+
+.errorInput {
+  text-align: left !important;
+  font-size: 12px !important;
+  color: red !important;
+}
+
+.recharts-cartesian-axis-ticks {
+  display: none;
 }
