@@ -39,8 +39,10 @@ function ComingsPage() {
     Comings.patchClient(client.client_fk, client, () => {
       Comings.patchComing(client.pk, client, (response) => {
         const newClients = clients.map((cl) => {
-          if (cl.pk === response.pk)
+          if (cl.pk === response.pk) {
             cl = response
+            cl['phone'] = response.client.phone
+          }
           return cl
         });
         setClients(newClients)

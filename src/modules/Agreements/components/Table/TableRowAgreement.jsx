@@ -5,15 +5,16 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import styles from './Table.module.css'
 import { Libs } from '../../../../Libs';
+const settings = require('../../../../settings.json');
 
 export default function TableRowAgreement(props) {
   let paid_transport = 0
   let paid_agreement = 0
 
   for (let key of props.row.cashboxes) {
-    if (key.type_payment_fk === '7bbcda1a-38b4-49fa-ab81-adf076c45b8e') {
+    if (key.type_payment_fk === settings.statuses.agreements.paid_transport) {
       paid_transport += key.money
-    } else if (key.type_payment_fk === '8e886f31-5400-4a0d-86cc-56893dfac269') {
+    } else if (key.type_payment_fk === settings.statuses.agreements.paid_agreement) {
       paid_agreement += key.money
     }
   }

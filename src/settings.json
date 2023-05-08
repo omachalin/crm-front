@@ -1,5 +1,11 @@
 {
-   "APIUrl": "http://127.0.0.1:8000/api/v1",
-   "coming_app": "56b0bdcb-49c3-4d91-a503-726630399b65",
-   "agreement_app": "364c9fde-45f2-4297-944e-f665ffe8b747"
+   "APIUrl": "http://45.81.224.229:80/api/v1",
+   "coming_app": "d8ab2238-af4a-42d7-b5fb-fbbea616e7aa",
+   "agreement_app": "c514f72b-9cc9-451c-be2c-4b6cc01f7cae",
+   "statuses": {
+      "agreements": {
+         "paid_transport": "628351e9-288f-4c74-8493-9322b7f0e8e1",
+         "paid_agreement": "b06d0dc1-5698-428d-82ca-e078bb493ee7"
+      }
+   }
 }

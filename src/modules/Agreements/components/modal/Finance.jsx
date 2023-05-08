@@ -11,6 +11,7 @@ import { TypePaymentsContext } from '../../../../context';
 import modalStyles from './modal.module.css'
 import { Libs } from '../../../../Libs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+const settings = require('../../../../settings.json');
 
 
 export default function FinanceModal(props) {
@@ -94,10 +95,11 @@ export default function FinanceModal(props) {
   const remainderMoney = (agreement) => {
     let moneyAgreement = 0
     let moneyTransport = 0
+
     agreement.cashboxes.forEach(function (element) {
-      if (element.type_payment_fk === '8e886f31-5400-4a0d-86cc-56893dfac269') // Если оплата договора
+      if (element.type_payment_fk === settings.statuses.agreements.paid_agreement) // Если оплата договора
         moneyAgreement += element.money
-      else if (element.type_payment_fk === '7bbcda1a-38b4-49fa-ab81-adf076c45b8e') // Если оплата ТР
+      else if (element.type_payment_fk === settings.statuses.agreements.paid_transport) // Если оплата ТР
         moneyTransport += element.money
     })
 

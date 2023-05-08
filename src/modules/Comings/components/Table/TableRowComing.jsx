@@ -39,7 +39,7 @@ export default function TableRowComing(props) {
       alert('Неизвестный тип статуса!')
       break;
   }
-
+  console.log(props.row)
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell align="center">
