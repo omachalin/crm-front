@@ -138,11 +138,11 @@ export default function TableAgreements(props) {
     } else {
       hightWindow -= 202
     }
-    if (navigator.userAgentData.mobile) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
+    // if (navigator.userAgentData.mobile) {
+    //   document.body.style.overflow = "auto";
+    // } else {
+    //   document.body.style.overflow = "hidden";
+    // }
 
     return hightWindow
   }

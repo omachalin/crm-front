@@ -205,9 +205,11 @@ export default function FinanceModal(props) {
             onChange={typePaymentChange}
             label="тип платежа"
           >
-            {typePayments.map((typePayment, index) => (
-              <MenuItem key={index} value={typePayment.pk}>{typePayment.name}</MenuItem>
-            ))}
+            {typePayments.map((typePayment, index) => {
+              if (typePayment.pk == settings.statuses.agreements.paid_agreement || 
+                typePayment.pk == settings.statuses.agreements.paid_transport)
+                return <MenuItem key={index} value={typePayment.pk}>{typePayment.name}</MenuItem>
+            })}
           </Select>
         </FormControl>
         {(errorTypePayment === true) &&
