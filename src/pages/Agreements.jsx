@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 import TableAgreements from "../modules/Agreements/components/Table/Table";
 import Comings from "../API/Comings";
 import Cashbox from "../API/Cashbox";
-import { TypePaymentsContext } from "../context";
+import { TypePaymentsContext, TypesMoneyContext } from "../context";
 
 
 function AgreementsPage() {
@@ -18,12 +18,14 @@ function AgreementsPage() {
   const globalSettings = require('../settings.json');
   const [settings, setSettings] = useState([])
   const [typePayments, setTypePayments] = useState([])
+  const [typesMoney, setTypesMoney] = useState([])
   const [filterAgreement, setFilterAgreement] = useState({})
 
   useEffect(() => {
     API.getSettings(globalSettings['agreement_app'], (data) => { setSettings(data) })
     setCounter(getCounterAgreements)
     getTypePayments()
+    getTypesMoney()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -50,6 +52,12 @@ function AgreementsPage() {
   const getTypePayments = () => {
     Cashbox.getTypePayments((data) => {
       setTypePayments(data)
+    })
+  }
+
+  const getTypesMoney = () => {
+    Cashbox.getTypesMoney((data) => {
+      setTypesMoney(data)
     })
   }
 
@@ -135,16 +143,20 @@ function AgreementsPage() {
             <TypePaymentsContext.Provider value={{
               typePayments,
             }}>
-              <TableAgreements
-                thead={settings.data['tableAgreementThead']}
-                tbody={agreements}
-                OnUpdateAgreement={updateAgreement}
-                OnDeleteAgreement={removeAgreement}
-                addPayment={addPayment}
-                addPage={addPage}
-                removePayment={removePayment}
-              // getCounter={getCounter}
-              />
+              <TypesMoneyContext.Provider value={{
+                typesMoney,
+              }}>
+                <TableAgreements
+                  thead={settings.data['tableAgreementThead']}
+                  tbody={agreements}
+                  OnUpdateAgreement={updateAgreement}
+                  OnDeleteAgreement={removeAgreement}
+                  addPayment={addPayment}
+                  addPage={addPage}
+                  removePayment={removePayment}
+                // getCounter={getCounter}
+                />
+              </TypesMoneyContext.Provider>
             </TypePaymentsContext.Provider>
           }
         </Grid>

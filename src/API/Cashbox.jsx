@@ -15,4 +15,9 @@ export default class Cashbox {
     await axios.delete(`/cashbox/cashbox/${pk}/`)
       .then(res => { console.log(res); callback(res.data) })
   }
+
+  static async getTypesMoney(callback) {
+    await axios.get(`/cashbox/type-money/`)
+      .then(res => { callback(res.data) })
+  }
 }
