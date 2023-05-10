@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import './App.css';
 import { AuthContext } from './context';
 import AppRouter from './route/AppRouter';
-import { UseCheckAuth } from './/hooks/CheckAuth';
 import { BrowserRouter } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-  const [isAuth, setIsAuth] = useState()
+  const [isAuth, setIsAuth] = useAuth()
+
   return (
     <AuthContext.Provider value={{
       isAuth,

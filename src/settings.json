@@ -7,5 +7,9 @@
          "paid_transport": "628351e9-288f-4c74-8493-9322b7f0e8e1",
          "paid_agreement": "b06d0dc1-5698-428d-82ca-e078bb493ee7"
       }
+   },
+   "AuthExpirationTime": {
+      "access_token": "1",
+      "refresh_token": "5"
    }
 }

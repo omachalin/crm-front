@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { AuthContext } from '../context'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import AuthStore from '../API/AuthStore';
 
 
 const LoginPage = () => {
@@ -38,9 +39,7 @@ const LoginPage = () => {
         if (res.status === 200) {
           setPassError(false)
           localStorage.clear();
-          localStorage.setItem('access_token', res.data.access);
-          localStorage.setItem('refresh_token', res.data.refresh);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`
+          AuthStore.setTokens(res.data.access, res.data.refresh)
           setIsAuth(true)
         } else {
           setPassError(true)
