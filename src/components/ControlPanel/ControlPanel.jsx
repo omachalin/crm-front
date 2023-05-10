@@ -16,7 +16,7 @@ function ControlPanel(props) {
 
   const create = () => {
     let newClient = { id: 0 }
-    let modalContent = getModalContent(props.component, newClient)
+    let modalContent = getModalContent(props.component, newClient, 'create')
     setModalTitle(modalContent['titleAdd'])
     setModalContent(
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -42,7 +42,7 @@ function ControlPanel(props) {
 
   const search = () => {
     let client = { id: 0 }
-    let modalContent = getModalContent(props.component, client)
+    let modalContent = getModalContent(props.component, client, 'search')
     setModalTitle(modalContent['titleSearch'])
     setModalContent(
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

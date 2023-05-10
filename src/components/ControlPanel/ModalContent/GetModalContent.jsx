@@ -1,13 +1,13 @@
 import AgreementsDetail from "../AgreementsDetail";
 import ComingsDetail from "../ComingsDetail";
 
-export function getModalContent(page, row) {
+export function getModalContent(page, row, type = 'create') {
   let result = {}
   
   switch (page) {
     case 'comings':
       result['titleAdd'] = 'Добавить клиента'
-      result['component'] = <ComingsDetail client={row} index={0} />
+      result['component'] = <ComingsDetail client={row} index={0} type={type} />
       result['titleSearch'] = 'Поиск по клиентам'
       break
     case 'agreements':

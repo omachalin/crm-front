@@ -2,14 +2,25 @@
    "APIUrl": "http://45.81.224.229:80/api/v1",
    "coming_app": "d8ab2238-af4a-42d7-b5fb-fbbea616e7aa",
    "agreement_app": "c514f72b-9cc9-451c-be2c-4b6cc01f7cae",
-   "statuses": {
-      "agreements": {
+   "agreements": {
+      "type_payments": {
          "paid_transport": "628351e9-288f-4c74-8493-9322b7f0e8e1",
          "paid_agreement": "b06d0dc1-5698-428d-82ca-e078bb493ee7"
       }
    },
+   "comings": {
+      "department": {
+         "call": "e90a85d8-3c69-4ab0-86fd-f93724322872",
+         "upp": "2da43e65-c4e5-4426-a277-85c7d92d2071"
+      }
+   },
+   "person": {
+      "statuses": {
+         "working": "818d4231-e627-4daa-b2ae-98d3ea24ed80"
+      }
+   },
    "AuthExpirationTime": {
-      "access_token": "1",
-      "refresh_token": "5"
+      "access_token": 1,
+      "refresh_token": 5
    }
 }

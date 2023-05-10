@@ -10,8 +10,12 @@ import Comings from '../../API/Comings';
 function ComingsDetail(props) {
   const [theme, setTheme] = useState(props.client?.theme?.pk);
   const [status, setStatus] = useState(props.client?.status?.pk);
+  const [upp, setUpp] = useState(props.client?.upp || (props.type === 'create' ? [] : ''));
+  const [callFk, setCallFk] = useState(props.client?.call);
   const [themes, setThemes] = useState([])
   const [statuses, setStatuses] = useState([])
+  const [uppPersonal, setUppPersonal] = useState([])
+  const [callPersonal, setCallPersonal] = useState([])
 
   const themeChange = (event) => {
     setTheme(event.target.value)
@@ -23,9 +27,21 @@ function ComingsDetail(props) {
     update(event)
   }
 
+  const uppChange = (event) => {
+    setUpp(event.target.value)
+    update(event)
+  }
+
+  const callChange = (event) => {
+    setCallFk(event.target.value)
+    update(event)
+  }
+
   useEffect(() => {
     Comings.getStatuses((data) => { setStatuses(data) })
     Comings.getThemes((data) => { setThemes(data) })
+    Comings.getPersonal(setUppPersonal, 'upp')
+    Comings.getPersonal(setCallPersonal, 'call')
   }, [])
 
   const update = (e) => {
@@ -33,6 +49,8 @@ function ComingsDetail(props) {
     let value = e.target.value
     props.client[key] = value
   }
+
+  console.log(props.client)
 
   return (
     <>
@@ -45,10 +63,33 @@ function ComingsDetail(props) {
             <TextField name="phone" fullWidth defaultValue={props.client?.phone} label="Телефон" variant="standard" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField name="call" fullWidth defaultValue={props.client?.call} label="Колл" variant="standard" />
+            <FormControl fullWidth variant="standard">
+              <InputLabel>Колл</InputLabel>
+              <Select name="call_fk" style={{ textAlign: 'left' }}
+                value={callFk ? callFk : ""}
+                label="Колл"
+                onChange={callChange}
+              >
+                {callPersonal.map((callPersonal, index) => (
+                  <MenuItem key={index} value={callPersonal.pk}>{callPersonal.pin}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField name="upp" fullWidth defaultValue={props.client?.upp} label="ЮПП" variant="standard" />
+            <FormControl fullWidth variant="standard">
+              <InputLabel>ЮПП</InputLabel>
+              <Select name="upp" style={{ textAlign: 'left' }}
+                multiple={props.type === 'create'}
+                value={upp ? upp : ""}
+                label="ЮПП"
+                onChange={uppChange}
+              >
+                {uppPersonal.map((uppPersonal, index) => (
+                  <MenuItem key={index} value={uppPersonal.pk}>{uppPersonal.pin}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
             <FormControl fullWidth variant="standard">

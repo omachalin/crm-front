@@ -111,9 +111,9 @@ export default function FinanceModal(props) {
     let moneyTransport = 0
 
     agreement.cashboxes.forEach(function (element) {
-      if (element.type_payment_fk === settings.statuses.agreements.paid_agreement) // Если оплата договора
+      if (element.type_payment_fk === settings.agreements.type_payments.paid_agreement) // Если оплата договора
         moneyAgreement += element.money
-      else if (element.type_payment_fk === settings.statuses.agreements.paid_transport) // Если оплата ТР
+      else if (element.type_payment_fk === settings.agreements.type_payments.paid_transport) // Если оплата ТР
         moneyTransport += element.money
     })
 
@@ -220,8 +220,8 @@ export default function FinanceModal(props) {
             label="тип платежа"
           >
             {typePayments.map((typePayment, index) => {
-              if (typePayment.pk == settings.statuses.agreements.paid_agreement || 
-                typePayment.pk == settings.statuses.agreements.paid_transport)
+              if (typePayment.pk == settings.agreements.type_payments.paid_agreement || 
+                typePayment.pk == settings.agreements.type_payments.paid_transport)
                 return <MenuItem key={index} value={typePayment.pk}>{typePayment.name}</MenuItem>
             })}
           </Select>

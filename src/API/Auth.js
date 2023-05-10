@@ -20,7 +20,6 @@ export class Auth {
     if (this.timeout) clearTimeout(this.timeout)
     if (AuthStore.refresh_token && AuthStore.expires_refresh - Date.now() > 0) {
       const time = AuthStore.expires_access - Date.now()
-      console.log(AuthStore.expires_access, time)
       this.timeout = setTimeout(() => Auth.refreshTokens(AuthStore.refresh_token), time);
     }
   }

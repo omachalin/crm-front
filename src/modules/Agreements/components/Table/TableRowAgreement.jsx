@@ -12,9 +12,9 @@ export default function TableRowAgreement(props) {
   let paid_agreement = 0
 
   for (let key of props.row.cashboxes) {
-    if (key.type_payment_fk === settings.statuses.agreements.paid_transport) {
+    if (key.type_payment_fk === settings.agreements.type_payments.paid_transport) {
       paid_transport += key.money
-    } else if (key.type_payment_fk === settings.statuses.agreements.paid_agreement) {
+    } else if (key.type_payment_fk === settings.agreements.type_payments.paid_agreement) {
       paid_agreement += key.money
     }
   }

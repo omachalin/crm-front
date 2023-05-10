@@ -74,10 +74,10 @@ function ComingsPage() {
   const OnAddClient = (client) => {
     let newClient = { name: client.name, phone: client.phone }
 
-    Comings.addClient(newClient, (response) => {
-      client['client_fk'] = response['pk']
+    Comings.addClient(newClient, (responseClient) => {
+      client['client_fk'] = responseClient['pk']
       Comings.addComing(client, (response) => {
-        setClients([response, ...clients])
+        setClients([{...response, phone: responseClient.phone}, ...clients])
       })
     })
   }
