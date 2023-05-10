@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Comings from '../../API/Comings';
+import { getInitials } from '../../helpers/getIninitials';
 
 
 function ComingsDetail(props) {
@@ -71,7 +72,7 @@ function ComingsDetail(props) {
                 onChange={callChange}
               >
                 {callPersonal.map((callPersonal, index) => (
-                  <MenuItem key={index} value={callPersonal.pk}>{callPersonal.pin}</MenuItem>
+                  <MenuItem key={index} value={callPersonal.pk}>{getInitials(callPersonal.name)}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -86,7 +87,7 @@ function ComingsDetail(props) {
                 onChange={uppChange}
               >
                 {uppPersonal.map((uppPersonal, index) => (
-                  <MenuItem key={index} value={uppPersonal.pk}>{uppPersonal.pin}</MenuItem>
+                  <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>
                 ))}
               </Select>
             </FormControl>
