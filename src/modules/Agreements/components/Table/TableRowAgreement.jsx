@@ -31,6 +31,7 @@ export default function TableRowAgreement(props) {
 
   if (props.row.dissolution)
     backgroundClass = styles.dissolutionAgreement
+    console.log(props.row.coming)
 
   return (
     <>
@@ -40,9 +41,12 @@ export default function TableRowAgreement(props) {
         <TableCell align="left">{props.row.coming.name}</TableCell>
         <TableCell align="left">{props.row.coming.client.phone}</TableCell>
         <TableCell align="center" style={{ 'position': 'relative' }}>
+          <div className={styles.callTdTable}>
+            <span title='Пин Колл'>{props.row.coming?.call_readonly?.pin}</span>
+          </div>
           {props.row.number}
           <div className={styles.lawyerTdTable}>
-            {props.row.coming.upp}
+            <span title='Пин ЮПП'>{props.row.coming.upp_readonly?.map(({pin}) => pin).join(', ')}</span>
           </div>
         </TableCell>
         <TableCell align="left">{props.row.coming.theme.name}</TableCell>

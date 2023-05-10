@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Comings from '../../API/Comings';
 import { getInitials } from '../../helpers/getIninitials';
+import Personal from '../../API/Personal';
 
 
 function ComingsDetail(props) {
@@ -41,8 +42,8 @@ function ComingsDetail(props) {
   useEffect(() => {
     Comings.getStatuses((data) => { setStatuses(data) })
     Comings.getThemes((data) => { setThemes(data) })
-    Comings.getPersonal(setUppPersonal, 'upp')
-    Comings.getPersonal(setCallPersonal, 'call')
+    Personal.getPersonal(setUppPersonal, 'upp')
+    Personal.getPersonal(setCallPersonal, 'call')
   }, [])
 
   const update = (e) => {
@@ -50,8 +51,6 @@ function ComingsDetail(props) {
     let value = e.target.value
     props.client[key] = value
   }
-
-  console.log(props.client)
 
   return (
     <>

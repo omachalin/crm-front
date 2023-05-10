@@ -6,6 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Comings from '../../API/Comings';
 import Agreements from '../../API/Agreements';
+import { getInitials } from '../../helpers/getIninitials';
+import Personal from '../../API/Personal';
 
 
 function AgreementsDetail(props) {
@@ -13,6 +15,10 @@ function AgreementsDetail(props) {
   const [themes, setThemes] = useState([])
   const [services, setServices] = useState([])
   const [service, setService] = useState(props.agreement?.service_fk)
+  const [upp, setUpp] = useState(props.agreement?.upp);
+  const [callFk, setCallFk] = useState(props.agreement?.call);
+  const [uppPersonal, setUppPersonal] = useState([])
+  const [callPersonal, setCallPersonal] = useState([])
 
   const themeChange = (event) => {
     setTheme(event.target.value)
@@ -24,9 +30,21 @@ function AgreementsDetail(props) {
     update(event)
   }
 
+  const uppChange = (event) => {
+    setUpp(event.target.value)
+    update(event)
+  }
+
+  const callChange = (event) => {
+    setCallFk(event.target.value)
+    update(event)
+  }
+
   useEffect(() => {
     Comings.getThemes((data) => { setThemes(data) })
     Agreements.getServices((data) => { setServices(data) })
+    Personal.getPersonal(setUppPersonal, 'upp')
+    Personal.getPersonal(setCallPersonal, 'call')
   }, [])
 
   const update = (e) => {
@@ -68,6 +86,34 @@ function AgreementsDetail(props) {
               >
                 {themes.map((theme, index) => (
                   <MenuItem key={index} value={theme.pk}>{theme.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth variant="standard">
+              <InputLabel>Колл</InputLabel>
+              <Select name="call_fk" style={{ textAlign: 'left' }}
+                value={callFk ? callFk : ""}
+                label="Колл"
+                onChange={callChange}
+              >
+                {callPersonal.map((callPersonal, index) => (
+                  <MenuItem key={index} value={callPersonal.pk}>{getInitials(callPersonal.name)}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth variant="standard">
+              <InputLabel>ЮПП</InputLabel>
+              <Select name="upp" style={{ textAlign: 'left' }}
+                value={upp ? upp : ""}
+                label="ЮПП"
+                onChange={uppChange}
+              >
+                {uppPersonal.map((uppPersonal, index) => (
+                  <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>
                 ))}
               </Select>
             </FormControl>

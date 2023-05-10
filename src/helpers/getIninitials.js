@@ -4,4 +4,4 @@ export const getInitials = (name) => {
 
   const initials = arr.slice(1).map((v) => `${v[0]}.`).join(' ');
   return `${arr[0]} ${initials}`
-}
+} 

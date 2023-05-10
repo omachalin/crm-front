@@ -42,6 +42,13 @@
   background: #fff;
 }
 
+.callTdTable {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 11px;
+}
+
 .lawyerTdTable {
   position: absolute;
   top: 0px;
