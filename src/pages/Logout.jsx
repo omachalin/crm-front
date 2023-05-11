@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import axios from "axios";
+import fetcher from "../fetcher";
 import { AuthContext } from "../context";
 import AuthStore from "../API/AuthStore";
 
@@ -7,7 +7,7 @@ export const LogoutPage = () => {
   const { setIsAuth } = useContext(AuthContext)
 
   useEffect(() => {
-    axios.post('/auth/logout/', {
+    fetcher.post('/auth/logout/', {
       refresh_token: AuthStore.refresh_token,
     }, { headers: { 'Content-Type': 'application/json' } }
     ).then(() => {

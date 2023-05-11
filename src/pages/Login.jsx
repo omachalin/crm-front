@@ -5,7 +5,7 @@ import { Grid, Paper, Avatar, TextField, Button } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { AuthContext } from '../context'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
+import fetcher from '../fetcher';
 import AuthStore from '../API/AuthStore';
 
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
       password: password
     };
 
-    await axios.post(`/token/`, user, { headers: { 'Content-Type': 'application/json' } },)
+    await fetcher.post(`/token/`, user, { headers: { 'Content-Type': 'application/json' } },)
       .then(res => {
         if (res.status === 200) {
           setPassError(false)

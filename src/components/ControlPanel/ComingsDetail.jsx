@@ -1,5 +1,5 @@
 import { Grid, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -7,9 +7,11 @@ import Select from '@mui/material/Select';
 import Comings from '../../API/Comings';
 import { getInitials } from '../../helpers/getIninitials';
 import Personal from '../../API/Personal';
+import { SettingsContext } from '../../context';
 
 
 function ComingsDetail(props) {
+  const settings = useContext(SettingsContext)
   const [theme, setTheme] = useState(props.client?.theme?.pk);
   const [status, setStatus] = useState(props.client?.status?.pk);
   const [upp, setUpp] = useState(props.client?.upp || (props.type === 'create' ? [] : ''));
@@ -42,8 +44,8 @@ function ComingsDetail(props) {
   useEffect(() => {
     Comings.getStatuses((data) => { setStatuses(data) })
     Comings.getThemes((data) => { setThemes(data) })
-    Personal.getPersonal(setUppPersonal, 'upp')
-    Personal.getPersonal(setCallPersonal, 'call')
+    Personal.getPersonal(setUppPersonal, settings.fk_department_upp, settings.fk_status_working)
+    Personal.getPersonal(setCallPersonal, settings.fk_department_call, settings.fk_status_working)
   }, [])
 
   const update = (e) => {

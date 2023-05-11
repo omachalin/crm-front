@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetcher from "../fetcher";
 import AuthStore from "./AuthStore";
 
 export class Auth {
@@ -7,7 +7,7 @@ export class Auth {
 
   static async refreshTokens(refreshToken) {
     this.statusToken = 'loading'
-    const response = await axios.post('/token-refresh/', {
+    const response = await fetcher.post('/token-refresh/', {
       refresh: refreshToken,
     });
 

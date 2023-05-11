@@ -7,16 +7,16 @@ import InputLabel from '@mui/material/InputLabel';
 import ReactVirtualizedTable from '../../../../components/Table/TableFixHead';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useContext, useState } from 'react';
-import { TypePaymentsContext, TypesMoneyContext } from '../../../../context';
+import { SettingsContext, TypePaymentsContext, TypesMoneyContext } from '../../../../context';
 import modalStyles from './modal.module.css'
 import { Libs } from '../../../../Libs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-const settings = require('../../../../settings.json');
 
 
 export default function FinanceModal(props) {
   const { typePayments } = useContext(TypePaymentsContext)
   const { typesMoney } = useContext(TypesMoneyContext)
+  const settings = useContext(SettingsContext)
   const [money, setMoney] = useState('1')
   const [typePayment, setTypePayment] = useState()
   const [errorTypePayment, setErrorTypePayment] = useState(false)
@@ -106,14 +106,16 @@ export default function FinanceModal(props) {
     },
   ];
 
+  console.log(settings)
+
   const remainderMoney = (agreement) => {
     let moneyAgreement = 0
     let moneyTransport = 0
 
     agreement.cashboxes.forEach(function (element) {
-      if (element.type_payment_fk === settings.agreements.type_payments.paid_agreement) // Если оплата договора
+      if (element.type_payment_fk === settings.type_payment_fk_paid_agreement_status) // Если оплата договора
         moneyAgreement += element.money
-      else if (element.type_payment_fk === settings.agreements.type_payments.paid_transport) // Если оплата ТР
+      else if (element.type_payment_fk === settings.type_payments_fk_paid_transport_status) // Если оплата ТР
         moneyTransport += element.money
     })
 
@@ -220,8 +222,8 @@ export default function FinanceModal(props) {
             label="тип платежа"
           >
             {typePayments.map((typePayment, index) => {
-              if (typePayment.pk == settings.agreements.type_payments.paid_agreement || 
-                typePayment.pk == settings.agreements.type_payments.paid_transport)
+              if (typePayment.pk == settings.type_payment_fk_paid_agreement_status || 
+                typePayment.pk == settings.type_payments_fk_paid_transport_status)
                 return <MenuItem key={index} value={typePayment.pk}>{typePayment.name}</MenuItem>
             })}
           </Select>

@@ -16,7 +16,6 @@ import Colspan from '../../../../components/Colspan/Colspan';
 import AgreementsDetail from '../../../../components/ControlPanel/AgreementsDetail';
 import FinanceModal from '../modal/Finance';
 
-
 export default function TableAgreements(props) {
   const [modalStatus, setModalStatus] = useState(false);
   const [modalTitle, setModalTitle] = useState('');

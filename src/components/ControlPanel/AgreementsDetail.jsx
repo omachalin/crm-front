@@ -1,5 +1,5 @@
 import { Grid, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -8,9 +8,11 @@ import Comings from '../../API/Comings';
 import Agreements from '../../API/Agreements';
 import { getInitials } from '../../helpers/getIninitials';
 import Personal from '../../API/Personal';
+import { SettingsContext } from '../../context';
 
 
 function AgreementsDetail(props) {
+  const settings = useContext(SettingsContext)
   const [theme, setTheme] = useState(props.agreement.coming?.theme_fk);
   const [themes, setThemes] = useState([])
   const [services, setServices] = useState([])
@@ -43,8 +45,8 @@ function AgreementsDetail(props) {
   useEffect(() => {
     Comings.getThemes((data) => { setThemes(data) })
     Agreements.getServices((data) => { setServices(data) })
-    Personal.getPersonal(setUppPersonal, 'upp')
-    Personal.getPersonal(setCallPersonal, 'call')
+    Personal.getPersonal(setUppPersonal, settings.fk_department_upp, settings.fk_status_working)
+    Personal.getPersonal(setCallPersonal, settings.fk_department_call, settings.fk_status_working)
   }, [])
 
   const update = (e) => {
@@ -93,7 +95,7 @@ function AgreementsDetail(props) {
           <Grid item xs={12} md={6}>
             <FormControl fullWidth variant="standard">
               <InputLabel>Колл</InputLabel>
-              <Select name="call_fk" style={{ textAlign: 'left' }}
+              <Select name="call" style={{ textAlign: 'left' }}
                 value={callFk ? callFk : ""}
                 label="Колл"
                 onChange={callChange}

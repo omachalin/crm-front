@@ -1,7 +1,13 @@
-import axios from "axios";
-const settings = require("../settings.json");
+import API from "./Global";
 
-const AuthExpirationTime = settings.AuthExpirationTime;
+let expiration_access = 2;
+let expiration_refresh = 5;
+
+// eslint-disable-next-line no-unused-expressions
+API.getSettings('auth', (data) => {
+  expiration_access = data[	'access_token_expiration_time']
+  expiration_refresh = data[	'refresh_token_expiration_time']
+})
 
 export default class AuthStore{
   access_token = '';
@@ -40,7 +46,7 @@ export default class AuthStore{
     localStorage.setItem("access_token", token)
     this.access_token = token;
 
-    const expires_access = Date.now() + AuthExpirationTime.access_token * 60 * 1000 - 20000
+    const expires_access = Date.now() + expiration_access * 60 * 1000 - 20000
     localStorage.setItem("expires_access", expires_access)
     this.expires_access = expires_access;
 
@@ -51,12 +57,12 @@ export default class AuthStore{
     localStorage.setItem("refresh_token", token)
     this.refresh_token = token;
 
-    const expires_refresh = Date.now() + AuthExpirationTime.refresh_token * 60 * 1000 - 20000
+    const expires_refresh = Date.now() + expiration_refresh * 60 * 1000 - 20000
     localStorage.setItem("expires_refresh", expires_refresh)
     this.expires_refresh = expires_refresh;
   }
 
-  static setChangeTokenshandler(handler) {
+  static setChangeTokensHandler(handler) {
     this.changeTokensHandler = handler;
   }
 }

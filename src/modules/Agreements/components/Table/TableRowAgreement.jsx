@@ -5,16 +5,18 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import styles from './Table.module.css'
 import { Libs } from '../../../../Libs';
-const settings = require('../../../../settings.json');
+import { useContext } from 'react';
+import { SettingsContext } from '../../../../context';
 
 export default function TableRowAgreement(props) {
+  const settings = useContext(SettingsContext)
   let paid_transport = 0
   let paid_agreement = 0
 
   for (let key of props.row.cashboxes) {
-    if (key.type_payment_fk === settings.agreements.type_payments.paid_transport) {
+    if (key.type_payment_fk === settings.type_payments_fk_paid_transport_status) {
       paid_transport += key.money
-    } else if (key.type_payment_fk === settings.agreements.type_payments.paid_agreement) {
+    } else if (key.type_payment_fk === settings.type_payment_fk_paid_agreement_status) {
       paid_agreement += key.money
     }
   }

@@ -5,7 +5,7 @@ import { Auth } from "../API/Auth";
 export const useAuth = () => {
   const [isAuth, setIsAuth] = useState()
 
-  AuthStore.setChangeTokenshandler((accessToken, refreshToken) => {
+  AuthStore.setChangeTokensHandler((accessToken, refreshToken) => {
     if (!refreshToken) return;
     Auth.setTimeout()
   })

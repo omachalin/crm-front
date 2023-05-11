@@ -5,24 +5,24 @@ import CounterLayout from "../components/Counter/CounterLayout";
 import { getCounterAgreements } from "../modules/Agreements/functions/setCounter";
 import API from '../API/Global';
 import { Grid } from '@mui/material';
-import TableAgreements from "../modules/Agreements/components/Table/Table";
 import Comings from "../API/Comings";
 import Cashbox from "../API/Cashbox";
-import { TypePaymentsContext, TypesMoneyContext } from "../context";
-
+import { SettingsContext, TypePaymentsContext, TypesMoneyContext } from "../context";
+import TableAgreements from "../modules/Agreements/components/Table/Table";
+const theadAgreement = require('../modules/Agreements/components/Table/thead.json');
 
 function AgreementsPage() {
+  const [settings, setSettings] = useState({});
   const [counter, setCounter] = useState({})
   const [agreements, setAgreements] = useState([])
   const [pageAgreement, setPageAgreement] = useState(1)
-  const globalSettings = require('../settings.json');
-  const [settings, setSettings] = useState([])
   const [typePayments, setTypePayments] = useState([])
   const [typesMoney, setTypesMoney] = useState([])
   const [filterAgreement, setFilterAgreement] = useState({})
 
   useEffect(() => {
-    API.getSettings(globalSettings['agreement_app'], (data) => { setSettings(data) })
+    API.getSettings('agreement', (data) => { setSettings(settings => ({...settings, ...data})) })
+    API.getSettings('general', (data) => { setSettings(settings => ({...settings, ...data})) })
     setCounter(getCounterAgreements)
     getTypePayments()
     getTypesMoney()
@@ -32,7 +32,6 @@ function AgreementsPage() {
   useEffect(() => {
     if (agreements.length !== 0) {
       console.log(agreements)
-      console.log(1)
       getCounter()
     }
   }, [agreements])
@@ -131,37 +130,39 @@ function AgreementsPage() {
   }
 
   return (
-    <div className="App">
-      <CounterLayout counter={counter} />
-      <ControlPanel
-        search={OnSearchAgreement}
-        component={'agreements'}
-      />
-      <Grid container>
-        <Grid item xs>
-          {!!(agreements.length && Object.values(settings).length) &&
-            <TypePaymentsContext.Provider value={{
-              typePayments,
-            }}>
-              <TypesMoneyContext.Provider value={{
-                typesMoney,
+    <SettingsContext.Provider value={settings}>
+      <div className="App">
+        <CounterLayout counter={counter} />
+        <ControlPanel
+          search={OnSearchAgreement}
+          component={'agreements'}
+        />
+        <Grid container>
+          <Grid item xs>
+            {!!agreements.length &&
+              <TypePaymentsContext.Provider value={{
+                typePayments,
               }}>
-                <TableAgreements
-                  thead={settings.data['tableAgreementThead']}
-                  tbody={agreements}
-                  OnUpdateAgreement={updateAgreement}
-                  OnDeleteAgreement={removeAgreement}
-                  addPayment={addPayment}
-                  addPage={addPage}
-                  removePayment={removePayment}
-                // getCounter={getCounter}
-                />
-              </TypesMoneyContext.Provider>
-            </TypePaymentsContext.Provider>
-          }
+                <TypesMoneyContext.Provider value={{
+                  typesMoney,
+                }}>
+                  <TableAgreements
+                    thead={theadAgreement.tableAgreementThead}
+                    tbody={agreements}
+                    OnUpdateAgreement={updateAgreement}
+                    OnDeleteAgreement={removeAgreement}
+                    addPayment={addPayment}
+                    addPage={addPage}
+                    removePayment={removePayment}
+                  // getCounter={getCounter}
+                  />
+                </TypesMoneyContext.Provider>
+              </TypePaymentsContext.Provider>
+            }
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </SettingsContext.Provider>
   )
 }
 
