@@ -6,20 +6,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Grid, TableContainer } from '@mui/material';
 import styles from './Table.module.css';
-import TableRowCashboxExpenses from './TableRowCashboxExpenses';
 import Colspan from '../../../../components/Colspan/Colspan';
 import { getDate } from '../../../../helpers/getDate';
+import { handleScrollBottom } from '../../../../helpers/handleScrollBottom';
 
-export default function TableCashboxExpenses(props) {
+export default function TableCashbox(props) {
+  const TableRowCashbox = props.rowComponent;
 
   const tableRow = (data) => {
     const table = [];
-    let dateCashboxExpenses = null;
+    let dateCashbox = null;
     data.forEach((row, index) => {
       let date = getDate(row.create_date_time)
 
-      if (dateCashboxExpenses !== date) {
-        dateCashboxExpenses = date
+      if (dateCashbox !== date) {
+        dateCashbox = date
         table.push(
           <Colspan
             key={`${index}_date`}
@@ -28,7 +29,7 @@ export default function TableCashboxExpenses(props) {
           >
             <Grid container spacing={2} style={{ height: '1.6rem' }}>
               <Grid align="center" item xs={12} md={12} >
-                <div className={styles.colSpanValue}>{dateCashboxExpenses}</div>
+                <div className={styles.colSpanValue}>{dateCashbox}</div>
               </Grid>
             </Grid>
           </Colspan>
@@ -36,7 +37,7 @@ export default function TableCashboxExpenses(props) {
       }
 
       table.push(
-        <TableRowCashboxExpenses
+        <TableRowCashbox
           key={index}
           index={index}
           row={row}
@@ -47,14 +48,19 @@ export default function TableCashboxExpenses(props) {
     return table;
   }
 
-  const classes = `tableCashboxExpenses ${styles.tableFixHead}`
+  const maxHeight = window.innerHeight - (window.innerHeight > 1000 ? 300 : 250)
+
+  const classes = `tableCashbox ${styles.tableFixHead}`
 
   return (
     <div>
-      <div className={styles.title}>Расходы</div>
+      <div className={styles.title}>Доходы</div>
       <TableContainer
         className={classes}
-        component={Paper}>
+        component={Paper}
+        onScroll={handleScrollBottom(props.onScrollBottom)}
+        style={{maxHeight}}
+        >
         <Table
           stickyHeader sx={{ minWidth: 650 }}
           style={{ overflow: 'hidden' }} size="small"

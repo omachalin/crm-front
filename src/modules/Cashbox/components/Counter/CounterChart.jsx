@@ -20,7 +20,7 @@ export default function CounterChart(props) {
           <XAxis dataKey="date" hide />
           <Tooltip />
           <Line type="monotone" dataKey="income" name="Прибыль" stroke="#00F740" />
-          <Line type="monotone" dataKey="expenses" name="Расход" stroke="red" />
+          <Line type="monotone" dataKey="expense" name="Расход" stroke="red" />
         </LineChart>
       </ResponsiveContainer>
     </div>

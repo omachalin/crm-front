@@ -1,10 +1,8 @@
 import fetcher from "../fetcher";
-import qs from "qs"
 
 export default class Cashbox {
   static async getCashbox(params = {}, callback) {
-    const normalizeParams = qs.stringify(params, {arrayFormat: "repeat"})
-    await fetcher.get(`/cashbox/cashbox/?${normalizeParams}`)
+    await fetcher.get(`/cashbox/cashbox/`, {params})
       .then(res => { callback(res.data) })
   }
 
@@ -33,9 +31,15 @@ export default class Cashbox {
       .then(res => { callback(res.data) })
   }
 
-  static async getCounter(callback) {
-    await fetcher.get(
+  static async getCounter() {
+    return fetcher.get(
       `/cashbox/cashbox/get-counter/`
-    ).then(res => callback(res.data))
+    ).then(res =>res.data)
+  }
+
+  static async getCounterGraph() {
+    return fetcher.get(
+      `/cashbox/cashbox/get-counter-graph/`
+    ).then(res => res.data)
   }
 }

@@ -19,7 +19,7 @@ export function getModalContent(page, row, type = 'create') {
 
     case 'cashbox':
       result['titleAdd'] = 'Добавить кассу'
-      result['component'] = <CashboxDetail cashbox={row} index={0} />
+      result['component'] = <CashboxDetail cashbox={row} index={0} type={type}/>
       result['titleSearch'] = 'Поиск по кассе'
       break
     default: break

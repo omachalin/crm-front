@@ -7,7 +7,7 @@ export default function Counter(props) {
     <div style={props.styles} className={styles.panelCounter}>
       <div className={styles.block}>
           <div className={styles.iconCounter}>{props.icon}</div>
-          <div className={styles.info}>Период: {props.peroid || 0}</div>
+          <div className={styles.info}>Период: {props.period || 0}</div>
           <div className={styles.info}>Месяц: {props.month || 0}</div>
       </div>
       <div className={styles.block}>
