@@ -17,6 +17,8 @@ export const LogoutPage = () => {
     })
     .catch((e) => {
       console.log('logout not working', e)
+      AuthStore.clear();
+      setIsAuth(false)
     })
   })
   return (
