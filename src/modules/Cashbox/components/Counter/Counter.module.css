@@ -1,0 +1,56 @@
+.iconCounter {
+  margin-left: 5px;
+  font-size: 33px !important;
+  color: #eeeeee;
+  height: 30px;
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.panelCounter {
+  border: 1px solid rgb(233 233 233);
+  border-radius: 9px!important;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 8px;
+  height: 90px;
+}
+
+.panelCounter:hover {
+  background: 'red'
+}
+
+.counterNumber {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.counterHint {
+  font-style: italic;
+  font-size: 15px;
+  color: #eeeeee;
+  text-align: right;
+}
+
+.blockTop {
+  height: 50px;
+}
+
+.info {
+  font-style: italic;
+  font-size: 12px;
+  color: #ffffff;
+  min-width: 70px;
+  text-align: left;
+}
+
+.info2 {
+  font-style: italic;
+  font-size: 12px;
+  color: #ffffff;
+  min-width: 70px;
+  text-align: right;
+}

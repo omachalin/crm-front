@@ -1,0 +1,50 @@
+.title {
+  color: #777;
+  margin: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.colSpanDateTd {
+  background: #2a425a;
+  position: relative !important;
+  height: 0.3rem;
+}
+
+.colorRed {
+  color: #ff2f2f;
+}
+
+.areYouSureUserName {
+  margin-top: 3%;
+  font-weight: bold;
+}
+
+.areYouSureRemoveModal {
+  font-size: 30px;
+}
+
+.colSpanValue {
+  position: absolute;
+  font-size: 13px;
+  top: 11%;
+  right: 50%;
+  color: #ffffff;
+  left: 50%;
+}
+
+.dissolutionCashbox {
+  background: #ff8282;
+}
+
+.fullPaymentsCashbox {
+  background: #66bb6a;
+}
+
+.partiallyPaymentsCashbox {
+  background: #ffb33d;
+}
+
+.notPaidCashbox {
+  background: #fff;
+}
+

@@ -265,6 +265,6 @@ export default function FinanceModal(props) {
           setRows={setRows}
         />
       </Grid>
-    </Grid >
+    </Grid>
   )
 }

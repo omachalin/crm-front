@@ -122,7 +122,7 @@ function ComingsDetail(props) {
               </Select>
             </FormControl>
           </Grid>
-        </Grid >
+        </Grid>
       }
     </>
   );

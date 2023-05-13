@@ -7,6 +7,7 @@ import styles from './Table.module.css'
 import { Libs } from '../../../../Libs';
 import { useContext } from 'react';
 import { SettingsContext } from '../../../../context';
+import { getTime } from '../../../../helpers/getDate';
 
 export default function TableRowAgreement(props) {
   const settings = useContext(SettingsContext)
@@ -39,7 +40,7 @@ export default function TableRowAgreement(props) {
     <>
       <TableRow className={backgroundClass} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell align="center">1</TableCell>
-        <TableCell align="center">{props.getTime(props.row.create_date_time)}</TableCell>
+        <TableCell align="center">{getTime(props.row.create_date_time)}</TableCell>
         <TableCell align="left">{props.row.coming.name}</TableCell>
         <TableCell align="left">{props.row.coming.client.phone}</TableCell>
         <TableCell align="center" style={{ 'position': 'relative' }}>

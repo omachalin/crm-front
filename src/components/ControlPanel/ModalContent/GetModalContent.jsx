@@ -1,4 +1,5 @@
 import AgreementsDetail from "../AgreementsDetail";
+import CashboxDetail from "../CashboxDetail";
 import ComingsDetail from "../ComingsDetail";
 
 export function getModalContent(page, row, type = 'create') {
@@ -12,8 +13,14 @@ export function getModalContent(page, row, type = 'create') {
       break
     case 'agreements':
       result['titleAdd'] = 'Добавить клиента'
-      result['component'] = <AgreementsDetail agreement={row} index={0} />
+      result['component'] = <AgreementsDetail agreement={row} index={0} type={type}/>
       result['titleSearch'] = 'Поиск по договорам'
+      break
+
+    case 'cashbox':
+      result['titleAdd'] = 'Добавить кассу'
+      result['component'] = <CashboxDetail cashbox={row} index={0} />
+      result['titleSearch'] = 'Поиск по кассе'
       break
     default: break
   }

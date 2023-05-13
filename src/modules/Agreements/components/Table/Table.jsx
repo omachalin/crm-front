@@ -15,6 +15,7 @@ import TableRowAgreement from './TableRowAgreement';
 import Colspan from '../../../../components/Colspan/Colspan';
 import AgreementsDetail from '../../../../components/ControlPanel/AgreementsDetail';
 import FinanceModal from '../modal/Finance';
+import { getDate } from '../../../../helpers/getDate';
 
 export default function TableAgreements(props) {
   const [modalStatus, setModalStatus] = useState(false);
@@ -22,24 +23,6 @@ export default function TableAgreements(props) {
   const [modalContent, setModalContent] = useState();
   const [modalButtons, setModalButtons] = useState();
   const [scrollTableEnd, setScrollTableEnd] = useState(false);
-
-  const getTime = (date) => {
-    let dateTime = new Date(date)
-    let hourses = dateTime.getHours().toString()
-    let minutes = dateTime.getMinutes().toString()
-    if (minutes.length === 1) minutes = `0${minutes}`
-    if (hourses.length === 1) hourses = `0${hourses}`
-    return `${hourses}:${minutes}`
-  }
-
-  const getDate = (date) => {
-    return (new Date(date).toLocaleString("ru", {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      timezone: 'UTC'
-    }));
-  }
 
   const finance = (row) => {
     setModalTitle(`Финансовая детализация`)
@@ -174,7 +157,6 @@ export default function TableAgreements(props) {
       <TableRowAgreement
         key={index}
         row={row}
-        getTime={getTime}
         finance={finance}
         update={update}
         remove={remove}

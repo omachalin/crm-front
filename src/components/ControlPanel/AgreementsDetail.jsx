@@ -154,7 +154,7 @@ function AgreementsDetail(props) {
             />
           </Grid>
 
-        </Grid >
+        </Grid>
       }
     </>
   );

@@ -3,6 +3,7 @@ import AgreementsPage from "../pages/Agreements";
 import ComingsPage from "../pages/Comings";
 import LogoutPage from "../pages/Logout";
 import Page404 from "../pages/Page404";
+import CashboxPage from "../pages/Cashbox";
 
 
 export const privateRoutes = [
@@ -17,6 +18,13 @@ export const privateRoutes = [
     'path': 'agreements',
     'name': 'Договоры',
     'component': <AgreementsPage />,
+    'exact': true,
+    'inMenu': true,
+  },
+  {
+    'path': 'cashbox',
+    'name': 'Касса',
+    'component': <CashboxPage />,
     'exact': true,
     'inMenu': true,
   },
