@@ -7,21 +7,21 @@ import Comings from '../API/Comings';
 import TableComing from '../modules/Comings/components/Table/Table';
 import { getCounterComings } from '../modules/Comings/functions/setCounter';
 import API from '../API/Global';
+import { SettingsContext } from '../context';
+
+const theadComing = require('../modules/Comings/components/Table/thead.json');
+
 
 function ComingsPage() {
-  const globalSettings = require('../settings.json');
+  const [settings, setSettings] = useState({});
   const [clients, setClients] = useState([])
-  const [settings, setSettings] = useState([])
   const [counter, setCounter] = useState({})
   const [filterClient, setFilterClient] = useState({})
   const [pageClient, setPageClient] = useState(1)
 
   useEffect(() => {
-    API.getSettings(globalSettings['coming_app'], (data) => { setSettings(data) })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
+    API.getSettings('coming', (data) => { setSettings(settings => ({...settings, ...data})) })
+    API.getSettings('general', (data) => { setSettings(settings => ({...settings, ...data})) })
     getCounter()
   }, [clients])
 
@@ -74,10 +74,10 @@ function ComingsPage() {
   const OnAddClient = (client) => {
     let newClient = { name: client.name, phone: client.phone }
 
-    Comings.addClient(newClient, (response) => {
-      client['client_fk'] = response['pk']
+    Comings.addClient(newClient, (responseClient) => {
+      client['client_fk'] = responseClient['pk']
       Comings.addComing(client, (response) => {
-        setClients([response, ...clients])
+        setClients([{...response, phone: responseClient.phone}, ...clients])
       })
     })
   }
@@ -99,29 +99,31 @@ function ComingsPage() {
   }
 
   return (
-    <div className="App">
-      <CounterLayout counter={counter} />
-      <ControlPanel
-        create={OnAddClient}
-        search={OnSearchClient}
-        component={'comings'}
-      />
-      <Grid container>
-        <Grid item xs>
-          {!!(clients.length && Object.values(settings).length) &&
-            <TableComing
-              thead={settings.data['tableComingThead']}
-              tbody={clients}
-              OnUpdateClient={OnUpdateClient}
-              OnDeleteClient={OnDeleteClient}
-              OnCloneClient={OnCloneClient}
-              addPage={addPage}
-              getCounter={getCounter}
-            />
-          }
+    <SettingsContext.Provider value={settings}>
+      <div className="App">
+        <CounterLayout counter={counter} />
+        <ControlPanel
+          create={OnAddClient}
+          search={OnSearchClient}
+          component={'comings'}
+        />
+        <Grid container>
+          <Grid item xs>
+            {!!(clients.length) &&
+              <TableComing
+                thead={theadComing.tableComingThead}
+                tbody={clients}
+                OnUpdateClient={OnUpdateClient}
+                OnDeleteClient={OnDeleteClient}
+                OnCloneClient={OnCloneClient}
+                addPage={addPage}
+                getCounter={getCounter}
+              />
+            }
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </SettingsContext.Provider>
   );
 }
 

@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/index.js';
 import ResponsiveAppBar from '../components/Navbar/navbar.jsx';
-import { Rowing } from '@mui/icons-material';
+import AuthStore from '../API/AuthStore.js';
 //import { ProtectedRoute } from '../components/unautorization/redirect.jsx'
 
 const AppRouter = () => {
@@ -21,7 +21,7 @@ const AppRouter = () => {
   }, [isAuth]);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    const token = AuthStore.access_token;
     if (token) {
       setIsAuth(true)
     } else if (window.location.pathname !== '/login') {

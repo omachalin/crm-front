@@ -72,7 +72,7 @@ export default function CounterChart(props) {
         </LineChart>
       </Grid> */}
 
-    </Grid >
+    </Grid>
   );
 }
 

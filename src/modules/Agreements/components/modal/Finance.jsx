@@ -7,22 +7,30 @@ import InputLabel from '@mui/material/InputLabel';
 import ReactVirtualizedTable from '../../../../components/Table/TableFixHead';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useContext, useState } from 'react';
-import { TypePaymentsContext } from '../../../../context';
+import { SettingsContext, TypePaymentsContext, TypesMoneyContext } from '../../../../context';
 import modalStyles from './modal.module.css'
 import { Libs } from '../../../../Libs';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-const settings = require('../../../../settings.json');
 
 
 export default function FinanceModal(props) {
   const { typePayments } = useContext(TypePaymentsContext)
+  const { typesMoney } = useContext(TypesMoneyContext)
+  const settings = useContext(SettingsContext)
   const [money, setMoney] = useState('1')
   const [typePayment, setTypePayment] = useState()
   const [errorTypePayment, setErrorTypePayment] = useState(false)
+  const [typeMoney, setTypeMoney] = useState()
+  const [errorTypeMoney, setErrorTypeMoney] = useState(false)
 
   const typePaymentChange = (e) => {
     setErrorTypePayment(false)
     setTypePayment(e.target.value)
+  }
+
+  const typeMoneyChange = (e) => {
+    setErrorTypeMoney(false)
+    setTypeMoney(e.target.value)
   }
 
   const getSchedule = () => {
@@ -49,13 +57,19 @@ export default function FinanceModal(props) {
   const addMoney = () => {
     if (!typePayment) {
       setErrorTypePayment(true)
-      return false
     }
+
+    if (!typeMoney) {
+      setErrorTypeMoney(true)
+    }
+
+    if (!typePayment || !typeMoney) return false;
 
     props.addPayment({
       'name': props.agreement.coming.name,
       'money': money,
       'type_payment_fk': typePayment,
+      'type_money_fk': typeMoney,
       'agreement_fk': props.agreement.pk,
     })
   }
@@ -92,14 +106,16 @@ export default function FinanceModal(props) {
     },
   ];
 
+  console.log(settings)
+
   const remainderMoney = (agreement) => {
     let moneyAgreement = 0
     let moneyTransport = 0
 
     agreement.cashboxes.forEach(function (element) {
-      if (element.type_payment_fk === settings.statuses.agreements.paid_agreement) // Если оплата договора
+      if (element.type_payment_fk === settings.type_payment_fk_paid_agreement_status) // Если оплата договора
         moneyAgreement += element.money
-      else if (element.type_payment_fk === settings.statuses.agreements.paid_transport) // Если оплата ТР
+      else if (element.type_payment_fk === settings.type_payments_fk_paid_transport_status) // Если оплата ТР
         moneyTransport += element.money
     })
 
@@ -197,7 +213,7 @@ export default function FinanceModal(props) {
           </div>
         </div>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={5}>
         <FormControl fullWidth variant="standard">
           <InputLabel>Тип платежа</InputLabel>
           <Select name="type_payment_fk" style={{ textAlign: 'left' }}
@@ -206,8 +222,8 @@ export default function FinanceModal(props) {
             label="тип платежа"
           >
             {typePayments.map((typePayment, index) => {
-              if (typePayment.pk == settings.statuses.agreements.paid_agreement || 
-                typePayment.pk == settings.statuses.agreements.paid_transport)
+              if (typePayment.pk == settings.type_payment_fk_paid_agreement_status || 
+                typePayment.pk == settings.type_payments_fk_paid_transport_status)
                 return <MenuItem key={index} value={typePayment.pk}>{typePayment.name}</MenuItem>
             })}
           </Select>
@@ -216,7 +232,22 @@ export default function FinanceModal(props) {
           <InputLabel className='errorInput'>Поле должно быть заполнено!</InputLabel>
         }
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
+        <FormControl fullWidth variant="standard">
+          <InputLabel>Тип оплаты</InputLabel>
+          <Select name="type_money_fk" style={{ textAlign: 'left' }}
+            value={typeMoney ? typeMoney : ""}
+            onChange={typeMoneyChange}
+            label="тип платежа"
+          >
+            {typesMoney.map((typeMoney, index) => <MenuItem key={index} value={typeMoney.pk}>{typeMoney.name}</MenuItem>)}
+          </Select>
+        </FormControl>
+        {(errorTypeMoney === true) &&
+          <InputLabel className='errorInput'>Поле должно быть заполнено!</InputLabel>
+        }
+      </Grid>
+      <Grid item xs={12} md={3}>
         <TextField name="money" onChange={moneyChange}
           InputProps={{ endAdornment: <AddCircleIcon className='addMoneyIcon' onClick={addMoney} /> }}
           type="number"
@@ -227,7 +258,6 @@ export default function FinanceModal(props) {
         }
       </Grid>
 
-
       <Grid item xs={12} align="center" style={{ marginTop: '3%' }}>
         <ReactVirtualizedTable
           tableHead={tableHead}
@@ -235,6 +265,6 @@ export default function FinanceModal(props) {
           setRows={setRows}
         />
       </Grid>
-    </Grid >
+    </Grid>
   )
 }

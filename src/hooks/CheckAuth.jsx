@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/index.js';
 
+
+
 export const UseCheckAuth = () => {
   const { setIsAuth } = useContext(AuthContext)
 

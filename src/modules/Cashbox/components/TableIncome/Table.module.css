@@ -1,3 +1,9 @@
+.title {
+  color: #777;
+  margin: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
 .colSpanDateTd {
   background: #2a425a;
   position: relative !important;
@@ -26,33 +32,38 @@
   left: 50%;
 }
 
-.dissolutionAgreement {
+.dissolutionCashbox {
   background: #ff8282;
 }
 
-.fullPaymentsAgreement {
+.fullPaymentsCashbox {
   background: #66bb6a;
 }
 
-.partiallyPaymentsAgreement {
+.partiallyPaymentsCashbox {
   background: #ffb33d;
 }
 
-.notPaidAgreement {
+.notPaidCashbox {
   background: #fff;
 }
 
 .callTdTable {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: -9px;
+  left: -5px;
   font-size: 11px;
 }
 
 .lawyerTdTable {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: -9px;
+  right: -5px;
   font-size: 11px;
 }
 
+.agreement {
+  position: relative;
+  text-align: center;
+  margin-bottom: 5px;
+}

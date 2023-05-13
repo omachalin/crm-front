@@ -50,8 +50,8 @@ export default function TableRowComing(props) {
       </TableCell>
       <TableCell align="left">{props.row.name}</TableCell>
       <TableCell align="left">{props.row.phone}</TableCell>
-      <TableCell align="center">{props.row.call}</TableCell>
-      <TableCell align="center">{props.row.upp}</TableCell>
+      <TableCell align="center">{props.row.call_readonly?.pin}</TableCell>
+      <TableCell align="center">{props.row.upp_readonly?.map(({pin}) => pin).join(', ')}</TableCell>
       <TableCell align="left">{props.row.theme.name}</TableCell>
       <TableCell align="left">
         <div

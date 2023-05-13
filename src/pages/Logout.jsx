@@ -1,27 +1,24 @@
 import { useContext, useEffect } from "react"
-import axios from "axios";
+import fetcher from "../fetcher";
 import { AuthContext } from "../context";
+import AuthStore from "../API/AuthStore";
 
 export const LogoutPage = () => {
   const { setIsAuth } = useContext(AuthContext)
-  useEffect(() => {
-    (async () => {
-      try {
-        await axios.post('/auth/logout/', {
-          refresh_token: localStorage.getItem('refresh_token')
-        }, { headers: { 'Content-Type': 'application/json' } }
-        );
 
-        localStorage.clear();
-        axios.defaults.headers.common['Authorization'] = null;
-        setIsAuth(false)
-        window.location.href = '/auth'
-      } catch (e) {
-        console.log('logout not working', e)
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    fetcher.post('/auth/logout/', {
+      refresh_token: AuthStore.refresh_token,
+    }, { headers: { 'Content-Type': 'application/json' } }
+    ).then(() => {
+      AuthStore.clear();
+      setIsAuth(false)
+      window.location.href = '/auth'
+    })
+    .catch((e) => {
+      console.log('logout not working', e)
+    })
+  })
   return (
     <div></div>
   )

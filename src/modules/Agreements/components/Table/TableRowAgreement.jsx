@@ -5,16 +5,19 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import styles from './Table.module.css'
 import { Libs } from '../../../../Libs';
-const settings = require('../../../../settings.json');
+import { useContext } from 'react';
+import { SettingsContext } from '../../../../context';
+import { getTime } from '../../../../helpers/getDate';
 
 export default function TableRowAgreement(props) {
+  const settings = useContext(SettingsContext)
   let paid_transport = 0
   let paid_agreement = 0
 
   for (let key of props.row.cashboxes) {
-    if (key.type_payment_fk === settings.statuses.agreements.paid_transport) {
+    if (key.type_payment_fk === settings.type_payments_fk_paid_transport_status) {
       paid_transport += key.money
-    } else if (key.type_payment_fk === settings.statuses.agreements.paid_agreement) {
+    } else if (key.type_payment_fk === settings.type_payment_fk_paid_agreement_status) {
       paid_agreement += key.money
     }
   }
@@ -31,18 +34,22 @@ export default function TableRowAgreement(props) {
 
   if (props.row.dissolution)
     backgroundClass = styles.dissolutionAgreement
+    console.log(props.row.coming)
 
   return (
     <>
       <TableRow className={backgroundClass} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell align="center">1</TableCell>
-        <TableCell align="center">{props.getTime(props.row.create_date_time)}</TableCell>
+        <TableCell align="center">{getTime(props.row.create_date_time)}</TableCell>
         <TableCell align="left">{props.row.coming.name}</TableCell>
         <TableCell align="left">{props.row.coming.client.phone}</TableCell>
         <TableCell align="center" style={{ 'position': 'relative' }}>
+          <div className={styles.callTdTable}>
+            <span title='Пин Колл'>{props.row.coming?.call_readonly?.pin}</span>
+          </div>
           {props.row.number}
           <div className={styles.lawyerTdTable}>
-            {props.row.coming.upp}
+            <span title='Пин ЮПП'>{props.row.coming.upp_readonly?.map(({pin}) => pin).join(', ')}</span>
           </div>
         </TableCell>
         <TableCell align="left">{props.row.coming.theme.name}</TableCell>

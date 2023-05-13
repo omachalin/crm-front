@@ -1,17 +1,25 @@
 import { Grid, TextField } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Comings from '../../API/Comings';
+import { getInitials } from '../../helpers/getIninitials';
+import Personal from '../../API/Personal';
+import { SettingsContext } from '../../context';
 
 
 function ComingsDetail(props) {
+  const settings = useContext(SettingsContext)
   const [theme, setTheme] = useState(props.client?.theme?.pk);
   const [status, setStatus] = useState(props.client?.status?.pk);
+  const [upp, setUpp] = useState(props.client?.upp || (props.type === 'create' ? [] : ''));
+  const [callFk, setCallFk] = useState(props.client?.call);
   const [themes, setThemes] = useState([])
   const [statuses, setStatuses] = useState([])
+  const [uppPersonal, setUppPersonal] = useState([])
+  const [callPersonal, setCallPersonal] = useState([])
 
   const themeChange = (event) => {
     setTheme(event.target.value)
@@ -23,9 +31,21 @@ function ComingsDetail(props) {
     update(event)
   }
 
+  const uppChange = (event) => {
+    setUpp(event.target.value)
+    update(event)
+  }
+
+  const callChange = (event) => {
+    setCallFk(event.target.value)
+    update(event)
+  }
+
   useEffect(() => {
     Comings.getStatuses((data) => { setStatuses(data) })
     Comings.getThemes((data) => { setThemes(data) })
+    Personal.getPersonal(setUppPersonal, settings.fk_department_upp, settings.fk_status_working)
+    Personal.getPersonal(setCallPersonal, settings.fk_department_call, settings.fk_status_working)
   }, [])
 
   const update = (e) => {
@@ -45,10 +65,33 @@ function ComingsDetail(props) {
             <TextField name="phone" fullWidth defaultValue={props.client?.phone} label="Телефон" variant="standard" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField name="call" fullWidth defaultValue={props.client?.call} label="Колл" variant="standard" />
+            <FormControl fullWidth variant="standard">
+              <InputLabel>Колл</InputLabel>
+              <Select name="call_fk" style={{ textAlign: 'left' }}
+                value={callFk ? callFk : ""}
+                label="Колл"
+                onChange={callChange}
+              >
+                {callPersonal.map((callPersonal, index) => (
+                  <MenuItem key={index} value={callPersonal.pk}>{getInitials(callPersonal.name)}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
-            <TextField name="upp" fullWidth defaultValue={props.client?.upp} label="ЮПП" variant="standard" />
+            <FormControl fullWidth variant="standard">
+              <InputLabel>ЮПП</InputLabel>
+              <Select name="upp" style={{ textAlign: 'left' }}
+                multiple={props.type === 'create'}
+                value={upp ? upp : ""}
+                label="ЮПП"
+                onChange={uppChange}
+              >
+                {uppPersonal.map((uppPersonal, index) => (
+                  <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} md={6}>
             <FormControl fullWidth variant="standard">
@@ -79,7 +122,7 @@ function ComingsDetail(props) {
               </Select>
             </FormControl>
           </Grid>
-        </Grid >
+        </Grid>
       }
     </>
   );
