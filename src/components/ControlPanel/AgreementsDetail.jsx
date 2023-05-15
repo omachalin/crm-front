@@ -17,7 +17,7 @@ function AgreementsDetail(props) {
   const [themes, setThemes] = useState([])
   const [services, setServices] = useState([])
   const [service, setService] = useState(props.agreement?.service_fk)
-  const [upp, setUpp] = useState(props.agreement?.upp);
+  const [upp, setUpp] = useState(props.agreement?.upp || []);
   const [callFk, setCallFk] = useState(props.agreement?.call);
   const [uppPersonal, setUppPersonal] = useState([])
   const [callPersonal, setCallPersonal] = useState([])
@@ -113,6 +113,7 @@ function AgreementsDetail(props) {
                 value={upp ? upp : ""}
                 label="ЮПП"
                 onChange={uppChange}
+                multiple
               >
                 {uppPersonal.map((uppPersonal, index) => (
                   <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>

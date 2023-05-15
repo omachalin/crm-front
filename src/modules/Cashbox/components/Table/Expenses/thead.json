@@ -2,22 +2,22 @@
   "tableCashboxExpensesThead": [{
     "id": 0,
     "title": "#",
-    "width": "3%",
+    "width": "20px",
     "position": "center"
   }, {
     "id": 1,
     "title": "Наименование",
-    "width": "10%",
+    "width": "200px",
     "position": "left"
   }, {
     "id": 4,
     "title": "Вид оплаты",
-    "width": "5%",
+    "width": "100px",
     "position": "left"
   }, {
     "id": 5,
     "title": "Сумма",
-    "width": "5%",
+    "width": "100px",
     "position": "left"
   }]
 }

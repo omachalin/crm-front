@@ -2,22 +2,19 @@ import { useEffect, useState } from "react";
 import Cashbox from "../API/Cashbox";
 import { getCounterCashbox } from "../modules/Cashbox/functions/setCounter";
 import { Grid } from "@mui/material";
-import TableCashboxIncome from "../modules/Cashbox/components/TableIncome/Table";
 import CounterLayout from "../modules/Cashbox/components/Counter/CounterLayout";
-import TableCashboxExpenses from "../modules/Cashbox/components/TableExpenses/Table";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
-import { SettingsContext, TypePaymentsContext, TypesMoneyContext } from "../context";
+import { SettingsContext } from "../context";
 import API from "../API/Global";
-const theadCashboxIncome = require('../modules/Cashbox/components/TableIncome/thead.json');
-const theadCashboxExpenses = require('../modules/Cashbox/components/TableExpenses/thead.json');
-
+import TableContainerExpenses from "../modules/Cashbox/components/Table/Expenses/TableContainerExpenses";
+import TableContainerIncome from "../modules/Cashbox/components/Table/Income/TableContainerIncome";
 
 function CashboxPage() {
   const [settings, setSettings] = useState({});
   const [counter, setCounter] = useState({})
   const [cashboxIncome, setCashboxIncome] = useState([])
   const [cashboxExpenses, setCashboxExpenses] = useState([])
-  const [filterCashbox, setFilterCashbox] = useState({})
+  const [filterCashbox, setFilterCashbox] = useState({page: 1})
 
   useEffect(() => {
     API.getSettings('cashbox', (data) => { setSettings(settings => ({...settings, ...data})) })
@@ -25,57 +22,26 @@ function CashboxPage() {
     getCounter()
   }, [])
 
-  useEffect(() => {
-
-    if (settings.type_payment_fk_agreement_status) {
-      const incomeTypePayments = {type_payment_fk: [settings.type_payment_fk_agreement_status, settings.type_payment_fk_transport_status]};
-
-      Cashbox.getCashbox({...filterCashbox, ...incomeTypePayments}, (data) => {
-        setCashboxIncome(data?.results || [])
-      })
-
-      const expensesTypePayments = {type_payment_fk: settings.type_payment_fk_expenses_status};
-
-      Cashbox.getCashbox({...filterCashbox, ...expensesTypePayments}, (data) => {
-        setCashboxExpenses(data?.results || [])
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings, filterCashbox])
-
   const getCounter = () => {
-    Cashbox.getCounter((data) => {
-      setCounter(getCounterCashbox(data))
+    Promise.all([Cashbox.getCounter(), Cashbox.getCounterGraph()]).then(([counter, counterGraph]) => {
+      const normalizeGrphData = Object.entries(counterGraph).reverse().map(([key, value]) => ({date: key, ...value}))
+      setCounter(getCounterCashbox({...counter, graph: normalizeGrphData}))
     })
   }
 
-  // const addCashbox = (data) => {
-  //   Cashbox.addMoney(data, (response) => {
-  //     const newAgreement = agreements.map((cl) => {
-  //       if (cl.pk === data.agreement_fk)
-  //         cl['cashboxes'].unshift(response)
-  //       return cl
-  //     });
-  //     setAgreements(newAgreement);
-  //     //console.log(agreements)
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   Agreements.getAgreements(pageAgreement, (data) => {
-  //     (data.length === 0)
-  //       ? setAgreements(data['results'])
-  //       : setAgreements([...agreements, ...data['results']])
-  //   }, filterAgreement)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pageAgreement])
-
   const handleAddCashbox = (cashbox) => {
-    Cashbox.addCashbox(cashbox)
+    Cashbox.addCashbox(cashbox, (data) => {
+      console.log(data)
+      if (data.type_payment_fk === settings.type_payment_fk_expenses_status) {
+        setCashboxExpenses(expenses => [data, ...expenses])
+      } else {
+        setCashboxIncome(income => [data, ...income])
+      }
+    })
   }
 
   const handleSearchCashbox = (params) => {
-      setFilterCashbox(params)
+      setFilterCashbox({...params, page: 1})
   }
 
   return (
@@ -87,20 +53,22 @@ function CashboxPage() {
             search={handleSearchCashbox}
             component={'cashbox'}
           />
-        <Grid container spacing={2}>
+        <Grid container columnSpacing={2}>
           <Grid item xs={12} md={7}>
-            {!!cashboxIncome.length &&
-                  <TableCashboxIncome
-                    thead={theadCashboxIncome.tableCashboxIncomeThead}
-                    tbody={cashboxIncome}
-                  />
+            {!!settings.type_payment_fk_agreement_status &&
+              <TableContainerIncome
+                filterCashbox={filterCashbox}
+                cashboxIncome={cashboxIncome}
+                setCashboxIncome={setCashboxIncome}
+              />
             }
           </Grid>
           <Grid item xs={12} md={5}>
-            {!!cashboxIncome.length &&
-              <TableCashboxExpenses
-                thead={theadCashboxExpenses.tableCashboxExpensesThead}
-                tbody={cashboxExpenses}
+            {!!settings.type_payment_fk_expenses_status &&
+              <TableContainerExpenses
+                filterCashbox={filterCashbox}
+                cashboxExpenses={cashboxExpenses}
+                setCashboxExpenses={setCashboxExpenses}
               />
             }
           </Grid>

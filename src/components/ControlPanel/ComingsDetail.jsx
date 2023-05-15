@@ -14,7 +14,7 @@ function ComingsDetail(props) {
   const settings = useContext(SettingsContext)
   const [theme, setTheme] = useState(props.client?.theme?.pk);
   const [status, setStatus] = useState(props.client?.status?.pk);
-  const [upp, setUpp] = useState(props.client?.upp || (props.type === 'create' ? [] : ''));
+  const [upp, setUpp] = useState(props.client?.upp ||  [] );
   const [callFk, setCallFk] = useState(props.client?.call);
   const [themes, setThemes] = useState([])
   const [statuses, setStatuses] = useState([])
@@ -82,7 +82,7 @@ function ComingsDetail(props) {
             <FormControl fullWidth variant="standard">
               <InputLabel>ЮПП</InputLabel>
               <Select name="upp" style={{ textAlign: 'left' }}
-                multiple={props.type === 'create'}
+                multiple
                 value={upp ? upp : ""}
                 label="ЮПП"
                 onChange={uppChange}

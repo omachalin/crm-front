@@ -118,25 +118,27 @@ function CashboxDetail(props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth variant="standard">
-              <InputLabel>ЮПП</InputLabel>
-              <Select name="upp" style={{ textAlign: 'left' }}
-                value={upp ? upp : ""}
-                label="ЮПП"
-                onChange={uppChange}
-              >
-                {uppPersonal.map((uppPersonal, index) => (
-                  <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth variant="standard">
-              <MuiDateRangePicker onDateRangeChange={handleDateRangeChange}/>
-            </FormControl>
-          </Grid>
+          {props.type === 'search' && <>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth variant="standard">
+                <InputLabel>ЮПП</InputLabel>
+                <Select name="upp" style={{ textAlign: 'left' }}
+                  value={upp ? upp : ""}
+                  label="ЮПП"
+                  onChange={uppChange}
+                >
+                  {uppPersonal.map((uppPersonal, index) => (
+                    <MenuItem key={index} value={uppPersonal.pk}>{getInitials(uppPersonal.name)}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl fullWidth variant="standard">
+                <MuiDateRangePicker onDateRangeChange={handleDateRangeChange}/>
+              </FormControl>
+            </Grid>
+          </>}
         </Grid>
       }
     </>

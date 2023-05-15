@@ -1,5 +1,4 @@
 .iconCounter {
-  margin-left: 5px;
   font-size: 33px !important;
   color: #eeeeee;
   height: 30px;
@@ -29,7 +28,6 @@
 }
 
 .counterHint {
-  font-style: italic;
   font-size: 15px;
   color: #eeeeee;
   text-align: right;
@@ -40,7 +38,6 @@
 }
 
 .info {
-  font-style: italic;
   font-size: 12px;
   color: #ffffff;
   min-width: 70px;
@@ -48,7 +45,6 @@
 }
 
 .info2 {
-  font-style: italic;
   font-size: 12px;
   color: #ffffff;
   min-width: 70px;

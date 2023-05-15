@@ -1,6 +1,6 @@
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import styles from './Table.module.css'
+import styles from '../Table.module.css'
 
 export default function TableRowCashboxIncome(props) {
   return (
